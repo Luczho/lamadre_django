@@ -1,0 +1,55 @@
+[project]
+name = "lamadre-django"
+version = "0.1.0"
+description = "E-commerce sklep oparty na django-oscar"
+authors = [
+    {name = "Bartel",email = "bartel@example.com"}
+]
+readme = "README.md"
+requires-python = "^3.11"
+dependencies = [
+    "django-oscar (>=4.0,<5.0)",
+    "django (>=5.2.5,<6.0.0)",
+    "psycopg2-binary (>=2.9.10,<3.0.0)",
+    "redis (>=6.4.0,<7.0.0)",
+    "celery (>=5.5.3,<6.0.0)",
+    "gunicorn (>=23.0.0,<24.0.0)",
+    "whitenoise (>=6.9.0,<7.0.0)",
+    "django-environ (>=0.12.0,<0.13.0)",
+    "pillow (>=11.3.0,<12.0.0)",
+    "django-compressor (>=4.5.1,<5.0.0)",
+    "django-extensions (>=4.1,<5.0)"
+]
+
+[tool.poetry]
+name = "lamadre-django"
+version = "0.1.0"
+description = "E-commerce sklep oparty na django-oscar"
+authors = ["Bartel <bartel@example.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django-oscar = "^4.0"
+django = "^5.2.5"
+psycopg2-binary = "^2.9.10"
+redis = "^6.4.0"
+celery = "^5.5.3"
+gunicorn = "^23.0.0"
+whitenoise = "^6.9.0"
+django-environ = "^0.12.0"
+pillow = "^11.3.0"
+django-compressor = "^4.5.1"
+django-extensions = "^4.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
+pytest-django = "^4.11.1"
+black = "^25.1.0"
+flake8 = "^7.3.0"
+isort = "^6.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Kontakt - LaMadre{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Kontakt</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Dane kontaktowe</h5>
+                <p><i class="fas fa-map-marker-alt"></i> ul. Przykładowa 123, 00-000 Warszawa</p>
+                <p><i class="fas fa-phone"></i> +48 123 456 789</p>
+                <p><i class="fas fa-envelope"></i> kontakt@lamadre.pl</p>
+                
+                <h5 class="mt-4">Godziny otwarcia</h5>
+                <p>Poniedziałek - Piątek: 9:00 - 18:00</p>
+                <p>Sobota: 9:00 - 14:00</p>
+                <p>Niedziela: Zamknięte</p>
+            </div>
+            <div class="col-md-6">
+                <h5>Formularz kontaktowy</h5>
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Imię i nazwisko</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">Temat</label>
+                        <input type="text" class="form-control" id="subject" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Wiadomość</label>
+                        <textarea class="form-control" id="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Wyślij wiadomość</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
