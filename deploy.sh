@@ -201,8 +201,8 @@ if [ ! -f ".env" ]; then
     log "Tworzę plik .env..."
     cp env.example .env
     
-    # Generowanie SECRET_KEY
-    SECRET_KEY=$(python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')
+    # Generowanie SECRET_KEY (używam openssl zamiast Python)
+    SECRET_KEY=$(openssl rand -base64 32 | tr -d "=+/" | cut -c1-50)
     sed -i "s/your-secret-key-here/$SECRET_KEY/" .env
     
     # Konfiguracja produkcji
