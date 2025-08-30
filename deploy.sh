@@ -148,7 +148,7 @@ EOF
     
     # Test połączenia SSH z GitHub
     log "Testuję połączenie SSH z GitHub..."
-    if su - $SUDO_USER -c "ssh -T git@github.com" > /dev/null 2>&1; then
+    if ssh -T git@github.com > /dev/null 2>&1; then
         log "✅ SSH połączenie z GitHub działa!"
         SSH_WORKING=true
     else
