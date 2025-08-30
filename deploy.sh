@@ -95,12 +95,12 @@ apt install -y certbot python3-certbot-nginx
 # Sprawdzenie i konfiguracja SSH
 log "Sprawdzam konfigurację SSH..."
 
-# Sprawdź czy SSH key już istnieje
-if [ -f "/home/$SUDO_USER/.ssh/id_ed25519" ] || [ -f "/home/$SUDO_USER/.ssh/id_rsa" ]; then
+# Sprawdź czy SSH key już istnieje (w root lub w katalogu użytkownika)
+if [ -f "/root/.ssh/id_ed25519" ] || [ -f "/root/.ssh/id_rsa" ] || [ -f "/home/$SUDO_USER/.ssh/id_ed25519" ] || [ -f "/home/$SUDO_USER/.ssh/id_rsa" ]; then
     log "SSH key już istnieje - sprawdzam połączenie z GitHub..."
     
-    # Test połączenia SSH z GitHub
-    if su - $SUDO_USER -c "ssh -T git@github.com" > /dev/null 2>&1; then
+    # Test połączenia SSH z GitHub (jako root)
+    if ssh -T git@github.com > /dev/null 2>&1; then
         log "✅ SSH połączenie z GitHub działa!"
         SSH_WORKING=true
     else
@@ -176,7 +176,7 @@ cd $APP_DIR
 if [ ! -d ".git" ]; then
     if [ "$SSH_WORKING" = true ]; then
         log "Klonuję repozytorium przez SSH..."
-        su - $SUDO_USER -c "git clone git@github.com:Luczho/lamadre_django.git ." || {
+        git clone git@github.com:Luczho/lamadre_django.git . || {
             warn "Klonowanie przez SSH nie działa, próbuję przez HTTPS..."
             git clone https://github.com/Luczho/lamadre_django.git .
         }
@@ -187,7 +187,7 @@ if [ ! -d ".git" ]; then
 else
     log "Aktualizuję repozytorium..."
     if [ "$SSH_WORKING" = true ]; then
-        su - $SUDO_USER -c "cd $APP_DIR && git pull origin main" || {
+        git pull origin main || {
             warn "Pull przez SSH nie działa, próbuję przez HTTPS..."
             git pull origin main
         }
