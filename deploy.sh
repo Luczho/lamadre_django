@@ -92,69 +92,18 @@ fi
 log "Instaluję Certbot dla SSL..."
 apt install -y certbot python3-certbot-nginx
 
-# Sprawdzenie i konfiguracja SSH
-log "Sprawdzam konfigurację SSH..."
+# Sprawdzenie SSH
+log "Sprawdzam połączenie SSH z GitHub..."
 
-# Sprawdź czy SSH key już istnieje (w root lub w katalogu użytkownika)
-if [ -f "/root/.ssh/id_ed25519" ] || [ -f "/root/.ssh/id_rsa" ] || [ -f "/home/$SUDO_USER/.ssh/id_ed25519" ] || [ -f "/home/$SUDO_USER/.ssh/id_rsa" ]; then
-    log "SSH key już istnieje - sprawdzam połączenie z GitHub..."
-    
-    # Test połączenia SSH z GitHub (jako root)
-    if ssh -T git@github.com > /dev/null 2>&1; then
-        log "✅ SSH połączenie z GitHub działa!"
-        SSH_WORKING=true
-    else
-        warn "SSH key istnieje, ale połączenie z GitHub nie działa"
-        warn "Sprawdź czy dodałeś klucz do GitHub lub czy jest poprawnie skonfigurowany"
-        SSH_WORKING=false
-    fi
+# Test połączenia SSH z GitHub
+if ssh -T git@github.com > /dev/null 2>&1; then
+    log "✅ SSH połączenie z GitHub działa!"
+    SSH_WORKING=true
 else
-    log "SSH key nie istnieje - generuję nowy..."
-    
-    # Przełącz na użytkownika i generuj SSH key
-    su - $SUDO_USER << 'EOF'
-        mkdir -p ~/.ssh
-        chmod 700 ~/.ssh
-        ssh-keygen -t ed25519 -C "lamadre-django@37.27.44.248" -f ~/.ssh/id_ed25519 -N ""
-        chmod 600 ~/.ssh/id_ed25519
-        chmod 644 ~/.ssh/id_ed25519.pub
-        
-        # Konfiguracja SSH dla GitHub
-        cat > ~/.ssh/config << 'SSHCONFIG'
-Host github.com
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/id_ed25519
-    IdentitiesOnly yes
-SSHCONFIG
-        
-        chmod 600 ~/.ssh/config
-        
-        echo "SSH key wygenerowany!"
-        echo "Public key:"
-        cat ~/.ssh/id_ed25519.pub
-        echo ""
-        echo "⚠️  DODAJ TEN KLUCZ DO GITHUB:"
-        echo "1. Idź na: https://github.com/settings/keys"
-        echo "2. Kliknij 'New SSH key'"
-        echo "3. Wklej powyższy klucz"
-        echo "4. Tytuł: lamadre-django@37.27.44.248"
-        echo "5. Kliknij 'Add SSH key'"
-        echo ""
-        echo "Po dodaniu klucza, wróć tutaj i naciśnij Enter..."
-EOF
-    
-    read -p "Naciśnij Enter po dodaniu SSH key do GitHub..."
-    
-    # Test połączenia SSH z GitHub
-    log "Testuję połączenie SSH z GitHub..."
-    if ssh -T git@github.com > /dev/null 2>&1; then
-        log "✅ SSH połączenie z GitHub działa!"
-        SSH_WORKING=true
-    else
-        warn "Połączenie SSH z GitHub nie działa. Sprawdź czy dodałeś klucz."
-        SSH_WORKING=false
-    fi
+    warn "SSH połączenie z GitHub nie działa"
+    warn "Upewnij się, że masz skonfigurowany SSH key w /root/.ssh/"
+    warn "i dodałeś go do GitHub: https://github.com/settings/keys"
+    SSH_WORKING=false
 fi
 
 # Konfiguracja Git
