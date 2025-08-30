@@ -28,9 +28,6 @@ RUN poetry config virtualenvs.create false \
 # Copy project
 COPY . .
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
-
 # Create logs directory
 RUN mkdir -p logs
 
