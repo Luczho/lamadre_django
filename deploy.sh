@@ -95,14 +95,12 @@ apt install -y certbot python3-certbot-nginx
 # Sprawdzenie SSH
 log "Sprawdzam połączenie SSH z GitHub..."
 
-# Test połączenia SSH z GitHub
-if ssh -T git@github.com > /dev/null 2>&1; then
+# Zamiast ssh -T, użyjemy git ls-remote
+if git ls-remote git@github.com:Luczho/lamadre_django.git > /dev/null 2>&1; then
     log "✅ SSH połączenie z GitHub działa!"
     SSH_WORKING=true
 else
     warn "SSH połączenie z GitHub nie działa"
-    warn "Upewnij się, że masz skonfigurowany SSH key w /root/.ssh/"
-    warn "i dodałeś go do GitHub: https://github.com/settings/keys"
     SSH_WORKING=false
 fi
 
