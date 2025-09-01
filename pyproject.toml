@@ -8,113 +8,32 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-# Django 4.2 - Oscar nie obsługuje jeszcze Django 5.x
+# Django 4.2 - Oscar compatibility
 Django = "~4.2.0"
-# Django Oscar i wymagane dependencies
+# Force compatible factory-boy version BEFORE django-oscar
+factory-boy = "~3.2.0"
+# Core Oscar dependencies
 django-oscar = "^3.2"
 pillow = "^10.0"
-sorl-thumbnail = "^12.9"
-django-compressor = "^4.4"
-django-widget-tweaks = "^1.5"
 # Database
 psycopg2-binary = "^2.9"
-# Cache i sessions
-django-redis = "^5.3"
-redis = "^4.6"
+# WSGI server
+gunicorn = "^21.2"
 # Environment variables
 django-environ = "^0.11"
 # Static files serving
 whitenoise = "^6.5"
-# Search backend (opcjonalnie dla Elasticsearch)
-django-haystack = "^3.2"
-# Celery dla background tasks
-celery = "^5.3"
-# WSGI server
-gunicorn = "^21.2"
-# Utilities
-django-extensions = "^3.2"
 
 [tool.poetry.group.dev.dependencies]
-# Development dependencies
+# Minimal dev dependencies to avoid conflicts
 black = "^23.7"
-flake8 = "^6.0"
-isort = "^5.12"
-pytest = "^7.4"
-pytest-django = "^4.5"
-pytest-cov = "^4.1"
 django-debug-toolbar = "^4.2"
-pre-commit = "^3.4"
 
 [tool.poetry.group.test.dependencies]
-# Test-specific dependencies
-factory-boy = "^3.3"
-coverage = "^7.3"
-pytest-mock = "^3.11"
+# Let django-oscar provide testing dependencies
+pytest = "^7.4"
+pytest-django = "^4.5"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.black]
-line-length = 88
-target-version = ['py311']
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-  | migrations
-)/
-'''
-
-[tool.isort]
-profile = "black"
-multi_line_output = 3
-line_length = 88
-known_django = "django"
-known_first_party = "lamadre_django,shop"
-sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
-
-[tool.flake8]
-max-line-length = 88
-exclude = [
-    ".git",
-    "__pycache__",
-    "*/migrations/*",
-    "*/venv/*",
-    "*/virtualenvs/*",
-    "*/settings/local.py"
-]
-ignore = [
-    "E203",  # whitespace before ':' (conflicts with black)
-    "W503",  # line break before binary operator (conflicts with black)
-]
-
-[tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "lamadre_django.settings"
-python_files = ["tests.py", "test_*.py", "*_tests.py"]
-addopts = "--verbose --tb=short --strict-markers"
-markers = [
-    "slow: marks tests as slow",
-    "integration: marks tests as integration tests",
-]
-
-[tool.coverage.run]
-source = "."
-omit = [
-    "*/venv/*",
-    "*/virtualenvs/*", 
-    "*/migrations/*",
-    "manage.py",
-    "*/settings/*",
-    "*/tests/*",
-    "*/__pycache__/*"
-]
