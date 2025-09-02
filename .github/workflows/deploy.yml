@@ -54,7 +54,14 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements-dev.txt
-    
+
+    - name: Debug Oscar installation  
+      run: |
+        python -c "import oscar; print(f'Oscar version: {oscar.__version__}')"
+        python -c "import oscar; print(oscar.__file__)"
+        python -c "import oscar; print(dir(oscar))"
+        ls -la /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/oscar/
+        
     - name: Run tests
       env:
         DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db
