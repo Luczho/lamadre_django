@@ -19,11 +19,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from oscar.app import application
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(apps.get_app_config('oscar').urls[0])),
-    path('dashboard/', include(apps.get_app_config('oscar').urls[1])),
+    path('', include(application.urls)),
 ]
 
 if settings.DEBUG:
