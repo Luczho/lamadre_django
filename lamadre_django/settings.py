@@ -75,6 +75,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'lamadre_django.wsgi.application'
 
+# HAYSTACK CONFIGURATION (wymagane przez Oscar)
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
+
 # Database
 DATABASES = {
     'default': {
