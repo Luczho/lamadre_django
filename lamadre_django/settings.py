@@ -33,8 +33,9 @@ DJANGO_APPS = [
     'django.contrib.flatpages',
 ]
 
-# Oscar apps - używamy get_core_apps() dla poprawnej kolejności
-from oscar import get_core_apps
+from oscar import INSTALLED_APPS as OSCAR_INSTALLED_APPS
+from oscar.defaults import *
+import oscar
 
 THIRD_PARTY_APPS = [
     'django_extensions',
@@ -45,8 +46,8 @@ LOCAL_APPS = [
     'shop',
 ]
 
-# Oscar core apps + nasze aplikacje
-INSTALLED_APPS = DJANGO_APPS + get_core_apps() + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS + OSCAR_INSTALLED_APPS
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
