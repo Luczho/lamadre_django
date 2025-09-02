@@ -69,6 +69,10 @@ jobs:
         find /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/oscar/ -name "*.py" | grep -E "(urls|app)" | head -10
         ls -la /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/oscar/
 
+    - name: Check Oscar config
+      run: |
+        cat /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/oscar/config.py
+
     - name: Run tests
       env:
         DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db
