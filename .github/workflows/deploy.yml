@@ -53,15 +53,16 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements-dev.txt
+        pip install --force-reinstall -r requirements-dev.txt
 
     - name: Debug Oscar installation  
       run: |
-        python -c "import oscar; print(f'Oscar version: {oscar.__version__}')"
-        python -c "import oscar; print(oscar.__file__)"
-        python -c "import oscar; print(dir(oscar))"
+        pip show django-oscar
+        python -c "import sys; print('Python path:', sys.path)"
+        find /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/ -name "*oscar*" -type d
         ls -la /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/oscar/
-        
+        cat /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/oscar/__init__.py
+              
     - name: Run tests
       env:
         DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db
