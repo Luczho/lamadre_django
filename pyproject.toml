@@ -13,7 +13,7 @@ Django = "~4.2.0"
 # Force compatible factory-boy version BEFORE django-oscar
 factory-boy = "~3.2.0"
 # Core Oscar dependencies
-django-oscar = "^3.2"
+django-oscar = "~3.1.0" 
 pillow = "^10.0"
 # Database
 psycopg2-binary = "^2.9"
