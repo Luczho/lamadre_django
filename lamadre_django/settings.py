@@ -21,17 +21,6 @@ DEBUG = env.bool('DEBUG', default=True)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
 
-# Application definition
-DJANGO_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'django.contrib.flatpages',
-]
 
 from oscar import INSTALLED_APPS as OSCAR_INSTALLED_APPS
 from oscar.defaults import *
@@ -46,7 +35,7 @@ LOCAL_APPS = [
     'shop',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS + OSCAR_INSTALLED_APPS
+INSTALLED_APPS = OSCAR_INSTALLED_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 
 MIDDLEWARE = [
