@@ -15,15 +15,12 @@ RUN apt-get update \
         libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Poetry
-RUN pip install poetry
+# Copy requirements files
+COPY requirements.txt ./
 
-# Copy poetry files
-COPY pyproject.toml poetry.lock ./
-
-# Configure poetry and install dependencies
-RUN poetry config virtualenvs.create false \
-    && poetry install --only=main --no-interaction --no-ansi
+# Install Python dependencies with pip
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
 # Copy project
 COPY . .

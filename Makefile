@@ -4,14 +4,15 @@ help: ## Show this help message
 	@echo "LaMadre Django - Available commands:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-install: ## Install dependencies with Poetry
-	poetry install
+install: ## Install dependencies with pip
+	pip install --upgrade pip
+	pip install -r requirements-dev.txt
 
 test: ## Run tests
-	poetry run python manage.py test
+	python manage.py test
 
 run: ## Run development server
-	poetry run python manage.py runserver
+	python manage.py runserver
 
 clean: ## Clean Python cache files
 	find . -type f -name "*.pyc" -delete
@@ -48,17 +49,18 @@ oscar-setup: ## Setup Oscar initial data
 	docker-compose exec web python manage.py oscar_import_catalogue
 
 format: ## Format code with Black and isort
-	poetry run black .
-	poetry run isort .
+	black .
+	isort .
 
 lint: ## Run linting checks
-	poetry run flake8 .
-	poetry run black --check .
-	poetry run isort --check-only .
+	flake8 .
+	black --check .
+	isort --check-only .
 
 setup-dev: ## Setup development environment
 	cp env.example .env
-	poetry install
+	pip install --upgrade pip
+	pip install -r requirements-dev.txt
 	docker-compose up -d
 	sleep 10
 	docker-compose exec web python manage.py migrate

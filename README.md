@@ -24,7 +24,7 @@ Nowoczesny sklep internetowy oparty na frameworku Django Oscar, oferujący pełn
 - **Web Server**: Gunicorn
 - **Reverse Proxy**: Nginx
 - **Containerization**: Docker + Docker Compose
-- **Package Manager**: Poetry
+- **Package Manager**: pip + requirements.txt
 - **Frontend**: Bootstrap 5 + Custom CSS/JS
 
 ## 📋 Wymagania systemowe
@@ -133,6 +133,8 @@ lamadre-django/
 ├── docker-compose.yml       # Konfiguracja Docker Compose
 ├── Dockerfile              # Obraz Docker
 ├── pyproject.toml          # Konfiguracja Poetry
+├── requirements.txt        # Zależności produkcyjne (pip)
+├── requirements-dev.txt    # Zależności deweloperskie/testowe (pip)
 └── README.md               # Ten plik
 ```
 
