@@ -2,8 +2,9 @@
 Django settings for lamadre_django project.
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,9 +23,9 @@ DEBUG = env.bool("DEBUG", default=True)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1", "0.0.0.0"])
 
 
+import oscar
 from oscar import INSTALLED_APPS as OSCAR_INSTALLED_APPS
 from oscar.defaults import *
-import oscar
 
 THIRD_PARTY_APPS = [
     "django_extensions",
