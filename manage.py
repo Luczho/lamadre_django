@@ -6,7 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lamadre_django.settings')
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lamadre_django.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -15,17 +15,18 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    
+
     # Import Celery app for management commands
     try:
         import celery
         from celery import current_app
-        current_app.config_from_object('django.conf:settings', namespace='CELERY')
+
+        current_app.config_from_object("django.conf:settings", namespace="CELERY")
     except ImportError:
         pass
-    
+
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
