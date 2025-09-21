@@ -22,18 +22,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
     # Django Admin
-    path('admin/', admin.site.urls),
-    
+    path("admin/", admin.site.urls),
     # Internationalization
-    path('i18n/', include('django.conf.urls.i18n')),
-    
+    path("i18n/", include("django.conf.urls.i18n")),
     # Oscar URLs - Official documented approach
-    path('', include(apps.get_app_config('oscar').urls[0])),
-
-    path('', include('shop.urls')),
+    path("", include(apps.get_app_config("oscar").urls[0])),
+    path("", include("shop.urls")),
 ]
 
 # Serve media files in development
