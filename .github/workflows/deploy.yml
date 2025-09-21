@@ -112,7 +112,7 @@ jobs:
           # Przejdź do katalogu aplikacji
           cd /opt/lamadre-django
           
-          # Zatrzymaj kontenery
+          # Zatrzymaj kontenery.
           docker-compose down
           
           # Sprawdź czy są lokalne zmiany
