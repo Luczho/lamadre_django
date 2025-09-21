@@ -16,20 +16,24 @@ Including another URLconf
 """
 
 from django.apps import apps
+from django.contrib import admin
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-# myproject/urls.py
-from django.contrib import admin
-from django.urls import include, path
+
 
 urlpatterns = [
     # Django Admin
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
+    
     # Internationalization
-    path("i18n/", include("django.conf.urls.i18n")),
+    path('i18n/', include('django.conf.urls.i18n')),
+    
     # Oscar URLs - Official documented approach
-    path("", include(apps.get_app_config("oscar").urls[0])),
+    path('', include(apps.get_app_config('oscar').urls[0])),
+
+    path('', include('shop.urls')),
 ]
 
 # Serve media files in development

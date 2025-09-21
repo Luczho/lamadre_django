@@ -11,6 +11,7 @@ services:
       - media_volume:/app/media
     environment:
       - DEBUG=True
+      - ALLOWED_HOSTS=shop.lamadre.pl,37.27.44.248,localhost,127.0.0.1
       - DB_HOST=db
       - REDIS_URL=redis://redis:6379/0
       - CELERY_BROKER_URL=redis://redis:6379/0
@@ -43,22 +44,22 @@ services:
     networks:
       - lamadre_network
 
-  # celery:
-  #   build: .
-  #   command: celery -A lamadre_django worker -l info
-  #   volumes:
-  #     - .:/app
-  #   environment:
-  #     - DEBUG=True
-  #     - DB_HOST=db
-  #     - REDIS_URL=redis://redis:6379/0
-  #     - CELERY_BROKER_URL=redis://redis:6379/0
-  #     - CELERY_RESULT_BACKEND=redis://redis:6379/0
-  #   depends_on:
-  #     - db
-  #     - redis
-  #   networks:
-  #     - lamadre_network
+  celery:
+    build: .
+    command: celery -A lamadre_django worker -l info
+    volumes:
+      - .:/app
+    environment:
+      - DEBUG=True
+      - DB_HOST=db
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+    networks:
+      - lamadre_network
 
   nginx:
     image: nginx:alpine
