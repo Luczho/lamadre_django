@@ -19,7 +19,7 @@ SECRET_KEY = env('SECRET_KEY', default='django-insecure-change-me-in-production'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=True)
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', '0.0.0.0'])
 
 
 from oscar import INSTALLED_APPS as OSCAR_INSTALLED_APPS
@@ -65,9 +65,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'oscar.apps.search.context_processors.search_form',
-                'oscar.apps.checkout.context_processors.order',
-                'oscar.apps.communication.notifications.context_processors.notifications',
-                'oscar.apps.customer.notifications.context_processors.notifications',
+                'oscar.apps.checkout.context_processors.checkout',
+                'oscar.core.context_processors.metadata',
             ],
         },
     },

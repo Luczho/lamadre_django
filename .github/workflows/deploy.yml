@@ -73,6 +73,10 @@ jobs:
       run: |
         cat /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/oscar/config.py
 
+    - name: Check Oscar application
+      run: |
+        find /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/oscar/core/ -name "application.py" -exec cat {} \;
+
     - name: Run tests
       env:
         DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db

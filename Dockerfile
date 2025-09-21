@@ -32,4 +32,7 @@ RUN mkdir -p logs
 EXPOSE 8000
 
 # Run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "lamadre_django.wsgi:application"] 
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "--timeout", "120", "lamadre_django.wsgi:application"]
+
+# Run for testing (uncomment for local development)
+# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
