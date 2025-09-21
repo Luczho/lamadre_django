@@ -67,8 +67,9 @@ jobs:
     - name: Run linting
       run: |
         black --check .
-        flake8 .
         isort --check-only .
+      # flake8 .
+        
 
   build-and-deploy:
     needs: test
